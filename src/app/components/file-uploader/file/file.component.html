@@ -1,0 +1,35 @@
+<div *ngIf="file" class="file">
+  <mat-icon class="file-icon">description</mat-icon>
+  <a (click)="download()">
+    {{ newFile ? file.name : file.filename }}
+  </a>
+
+  <button
+    type="button"
+    aria-label="Remove file"
+    mat-icon-button
+    (click)="delete()"
+    class="remove-button"
+  >
+    <mat-icon
+      class="remove-icon"
+      #tooltip="matTooltip"
+      matTooltip="{{ 'delete-file' | translate }}"
+      matTooltipPosition="above"
+      >close</mat-icon
+    >
+  </button>
+  <div class="progress">
+    <div
+      class="progress-bar"
+      role="progressbar"
+      [ngStyle]="{ width: progress + '%' }"
+      [ngClass]="{ uploaded: progress === 100 }"
+    ></div>
+  </div>
+
+  <ngfUploadStatus
+    [(percent)]="progress"
+    [httpEvent]="httpEvent"
+  ></ngfUploadStatus>
+</div>

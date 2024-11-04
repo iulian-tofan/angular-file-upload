@@ -1,0 +1,49 @@
+<!-- <div *ngIf="config.theme == 'inline'" class="file-uploader-container">
+  <div
+    ngfDrop
+    class="drop-zone"
+    [multiple]="config.multiple"
+    [selectable]="config.selectable"
+    [accept]="config.accept"
+    [maxSize]="config.maxSize"
+    [(validDrag)]="validComboDrag"
+    [(files)]="files"
+    [(lastInvalids)]="lastInvalids"
+    [(dragFiles)]="dragFiles"
+    [class.invalid-drag]="validComboDrag === false"
+    [class.valid-drag]="validComboDrag"
+    (filesChange)="onFilesChange()"
+    [fileDropDisabled]="config.fileDropDisabled"
+    #tooltip="matTooltip"
+    [matTooltip]="config.tooltip?.text"
+    [matTooltipClass]="config.tooltip?.class"
+    [matTooltipPosition]="config.tooltip?.position"
+    [matTooltipHideDelay]="config.tooltip?.hideDelay"
+    (lastInvalidsChange)="invalidFilesDrop($event)"
+  >
+    {{ config.replaceTexts?.selectFiles || SELECT_FILES  }}
+  </div>
+
+  <ng-container *ngFor="let file of initialUploadedFiles; let i = index">
+    @for (item of items; track $index) {}
+    <tc-file
+      [file]="file"
+      (fileDeleted)="onFileDeleted($event, initialUploadedFiles, i)"
+      [uploadErrorMessage]="
+        this.config.replaceTexts.fileUploadError || FILE_UPLOAD_ERROR
+      "
+    ></tc-file>
+  </ng-container>
+
+  <ng-container *ngFor="let file of files; let i = index">
+    <tc-file
+      [newFile]="true"
+      [file]="file"
+      (fileUploaded)="onFileUploaded($event)"
+      (fileDeleted)="onFileDeleted($event, files, i)"
+      [uploadErrorMessage]="
+        this.config.replaceTexts.fileUploadError || FILE_UPLOAD_ERROR
+      "
+    ></tc-file>
+  </ng-container>
+</div> -->
