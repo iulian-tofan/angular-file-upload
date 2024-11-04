@@ -1,15 +1,52 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-gpt-form-control-file-uploader',
   standalone: true,
   imports: [CommonModule],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => GptFormControlFileUploaderComponent),
+      multi: true,
+    },
+  ],
   templateUrl: './gpt-form-control-file-uploader.component.html',
   styleUrl: './gpt-form-control-file-uploader.component.scss',
 })
-export class GptFormControlFileUploaderComponent {
+export class GptFormControlFileUploaderComponent
+  implements ControlValueAccessor
+{
   files: File[] = [];
   isFileOver: boolean = false;
+
+  // Callbacks for ControlValueAccessor
+  private onChange: (files: File[]) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  // ControlValueAccessor: Write a value to the component
+  writeValue(files: File[]): void {
+    if (files) {
+      this.files = files;
+    }
+  }
+
+  // ControlValueAccessor: Register a callback function that should be called when the model value changes
+  registerOnChange(fn: (files: File[]) => void): void {
+    this.onChange = fn;
+  }
+
+  // ControlValueAccessor: Register a callback function that should be called when the control is touched
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  // Call onTouched when the user interacts with the component
+  markAsTouched(): void {
+    this.onTouched();
+  }
 
   // Triggered when files are dragged over the drop area
   onDragOver(event: DragEvent): void {
@@ -46,10 +83,11 @@ export class GptFormControlFileUploaderComponent {
 
   // Add files to the list and handle duplicates
   addFiles(fileList: FileList): void {
-    Array.from(fileList).forEach((file) => {
-      if (!this.files.some((existingFile) => existingFile.name === file.name)) {
-        this.files.push(file);
-      }
-    });
+    const newFiles = Array.from(fileList).filter(
+      (file) =>
+        !this.files.some((existingFile) => existingFile.name === file.name),
+    );
+    this.files.push(...newFiles);
+    this.onChange(this.files); // Notify Angular forms of the change
   }
 }
