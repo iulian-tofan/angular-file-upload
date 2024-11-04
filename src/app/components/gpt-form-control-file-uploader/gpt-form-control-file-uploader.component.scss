@@ -1,0 +1,22 @@
+.file-drop-area {
+  border: 2px dashed #cccccc;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.file-drop-area.file-over {
+  background-color: #f0f8ff;
+  border-color: #007bff;
+}
+
+button {
+  margin-top: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
