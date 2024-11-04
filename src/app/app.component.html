@@ -1,0 +1,30 @@
+<div>
+  <h1>Basic file uploader</h1>
+  <app-gpt-file-uploader></app-gpt-file-uploader>
+</div>
+
+<div>
+  <h1>Form Control</h1>
+
+  <div>
+    <app-gpt-form-control-file-uploader
+      [formControl]="formControl"
+    ></app-gpt-form-control-file-uploader>
+    <button (click)="log(formControl.value)">Submit</button>
+  </div>
+
+  <pre>{{ formControl.value | json }}</pre>
+</div>
+
+<div>
+  <h1>Integration in Form Group</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-gpt-form-control-file-uploader
+      formControlName="files"
+    ></app-gpt-form-control-file-uploader>
+    <button type="submit">Submit</button>
+  </form>
+
+  <pre>{{ form.value | json }}</pre>
+</div>
